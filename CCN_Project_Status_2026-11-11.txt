@@ -1,0 +1,93 @@
+CCN Playback Development Project Status
+Date: 2026-11-11
+Project: Cable Counter Network (CCN)
+Current Working File: CCN_V10_0_DEV17.py
+
+CURRENT STABLE FUNCTIONS
+
+Serial Communications
+- COM port selection operational
+- COM port refresh operational
+- Connect / Disconnect operational
+- SCC communication verified on COM7
+- Live SCC strings successfully received
+
+Example live SCC record:
+$CCB00000.7M+0357
+
+SCC Data Processing
+Current SCC output format confirmed:
+$CCB00000.7M+0357
+
+Required production regex:
+r'\$CC([A-D])([\d\.]+)([MF])([+-]\d{4})'
+
+Known issue:
+- DEV17 must be verified to ensure the above regex is actually installed.
+- Previous versions contained escaped brackets and malformed regex patterns.
+
+Display Functions
+- Raw Cable Display
+- Installation Offset
+- Zero Display
+- Direction Calculation
+- Speed Calculation
+- Calibration Display
+- Equipment Label
+
+Logging Functions
+- Daily CSV log creation
+- CSV append mode
+- Logging Enable/Disable checkbox
+- Timestamp logging
+- Equipment label logging
+
+Raw Data Recording
+- Creates recordings directory
+- Records every received SCC string
+
+Playback Development
+Goal: Allow CCN operation without a live SCC device.
+
+Playback File Selection
+Status: Implemented
+
+Playback Engine
+Status: Code exists
+Functions present:
+- start_playback()
+- playback_tick()
+- stop_playback()
+
+Playback Timer
+Status: Not verified
+Required in __init__():
+self.playback_lines=[]
+self.playback_index=0
+self.playback_file=''
+self.playback_timer=QTimer()
+self.playback_timer.timeout.connect(self.playback_tick)
+
+Playback Controls
+Status: Missing
+Required GUI controls:
+- Play Playback
+- Stop Playback
+
+DEV17 Assessment
+COM7 Communications: PASS
+SCC Parsing: PASS
+Logging: PASS
+Raw Recording: PASS
+Browse Playback File: PASS
+Playback Engine Functions: PASS
+Playback Timer Init: VERIFY
+Play Button: MISSING
+Stop Button: MISSING
+Playback Testing: NOT COMPLETED
+
+Recommended Next Version
+V10_0_DEV18
+Objective: Complete playback controls and verify operation.
+
+Current Baseline File: CCN_V10_0_DEV17.py
