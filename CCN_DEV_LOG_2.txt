@@ -1,0 +1,94 @@
+CCN DEVELOPMENT LOG
+===================
+
+Project: Cable Counter Network (CCN)
+
+CURRENT GOLD MASTER
+-------------------
+Version: V09.1
+File: ccn_v09_1_gui.py
+Status: Working on COM7 with live SCC data.
+
+HARDWARE
+--------
+- SCC Cable Counter
+- COM7
+- Python 3.13
+- PySerial
+
+SCC MESSAGE FORMAT
+------------------
+Example:
+$CCB00000.7M+0357
+
+Parsed:
+- Address = B
+- Cable Out = 0.7
+- Units = M
+- Calibration = +0357
+
+WORKING FEATURES (V09.1)
+------------------------
+- COM Port Selection
+- Connect / Disconnect
+- SCC Serial Parsing
+- Address Display
+- Raw Cable Display
+- Display Cable Value
+- Direction Display
+- Speed Display
+- Calibration Display
+- Equipment Label (TVG, SSS, CTD, etc.)
+- Watchdog
+- CSV Logging Framework
+- Logging Enable Checkbox
+- Config Persistence
+
+FAILED VERSION
+--------------
+V09.1a
+Issue: read_serial_data() accidentally replaced with pass
+Result: No SCC data, no address updates, watchdog stayed NO DATA.
+
+DEVELOPMENT RULES
+-----------------
+1. Always start from last validated working file.
+2. Generate complete downloadable .py files.
+3. Avoid copy/paste patches when possible.
+4. Preserve existing functionality when adding features.
+5. Increment version number every release.
+6. Test on COM7 before calling a version stable.
+7. Working code always wins.
+8. Never rebuild from memory; modify the current working version.
+
+VERSION ROADMAP
+---------------
+V09.1 = Current Gold Master
+V09.1b = Restore buttons to working V09.1
+V09.2 = Logging enhancements and operational improvements
+V10 = TCP/IP server-client vessel distribution
+
+V09.1b TARGET FEATURES
+----------------------
+- ZERO DISPLAY button
+- INSTALL OFFSET button
+- RESET SCC placeholder button
+- Keep all V09.1 functionality intact
+
+V10 GOALS
+----------
+- TCP Server
+- Multiple Clients
+- Vessel Network Distribution
+- Navigation PC Connectivity
+- Acquisition PC Connectivity
+- Processing PC Connectivity
+
+SESSION RESUME PROCEDURE
+------------------------
+1. Upload latest working .py file.
+2. Review this log.
+3. Increment version.
+4. Generate complete downloadable .py.
+5. Test on COM7.
+6. Update log.

@@ -1,0 +1,150 @@
+CCN DEVELOPMENT LOG
+===================
+
+Project: Cable Counter Network (CCN)
+Owner: Scott Sharpe
+Branding: CSA Ocean Sciences Inc.
+Footer Standard: Scott Sharpe / Copilot
+
+CURRENT GOLD MASTER
+-------------------
+Version: CCN_V09_1J_GM.py
+Status: GOLD MASTER
+Date Promoted: 2026-11-10
+
+VERIFIED WORKING FEATURES
+-------------------------
+- COM7 Communications
+- SCC Parsing
+- Address Display
+- Calibration Display
+- Large Cable Display
+- Direction Display
+- Speed Display
+- Watchdog
+- Watchdog Color Coding
+- Last Data Timestamp
+- Equipment Labels
+- CSV Logging
+- ZERO DISPLAY
+- INSTALL OFFSET
+- SCC Reset Command Transmission
+- CSA Logo
+- Footer Branding
+
+SCC DOCUMENTATION BASELINE
+--------------------------
+- SCC_BT_Manual.pdf
+- SCC BT Sensor Quick Setup Procedure.pdf
+
+CONFIRMED SCC COMMANDS
+----------------------
+Configuration: !!RTCONF
+Reset Format: !!RTRRRRR
+Examples:
+!!RT00000
+!!RT00025
+!!RT00100
+
+CSV LOGGING VERIFICATION
+------------------------
+Status: PASS
+
+Investigation Results:
+- write_csv() confirmed operational
+- CSV files successfully created
+- Logging checkbox functioning
+
+Observed Error:
+PermissionError [Errno 13]
+
+Cause:
+CSV file was opened while CCN was attempting to append records.
+
+Operational Rule:
+Do not keep active CSV file open in Excel while CCN is running.
+
+RAW SCC RECORDING
+-----------------
+Status: IMPLEMENTED
+
+Output Location:
+recordings\scc_raw_YYYY-MM-DD.txt
+
+Purpose:
+- Playback development
+- Bug reproduction
+- Training mode
+- Offline testing
+
+Playback Rule:
+Malformed SCC strings must be ignored and never crash playback.
+
+Example malformed string:
+$CCB00017
+
+VERSION HISTORY
+---------------
+V09.1  - Working baseline
+V09.1a - FAILED parser disconnected
+V09.1b - Partial recovery
+V09.1c - FAILED missing reset_scc
+V09.1d - Candidate build
+V09.1e - REJECTED syntax error
+V09.1f - Cleanup build
+V09.1g - Logo/watchdog restoration
+V09.1h - Candidate build
+V09.1i - FAILED indentation issue
+V09.1j - SUCCESS / GOLD MASTER
+V09.1k - CSV diagnostic build only
+V09.1l - CSV diagnostic build only
+
+LESSONS LEARNED
+---------------
+14. Do not develop from code pasted into chat.
+15. Use actual .py files as the development baseline.
+16. Avoid version suffixes i, l, I, L, O.
+
+VERSION NAMING STANDARD
+-----------------------
+Gold Master:
+CCN_V09_1J_GM.py
+
+Development Builds:
+CCN_V10_0_DEV01.py
+CCN_V10_0_DEV02.py
+etc.
+
+V10 BRANCH
+----------
+Current Development Branch:
+CCN_V10_0_DEV01.py
+
+Objectives:
+1. Playback Mode
+2. Raw SCC Playback
+3. Playback Speed Control
+4. Offline Development Mode
+5. Future TCP/IP Networking
+
+PLAYBACK REQUIREMENTS
+---------------------
+- Use same parser as live SCC data
+- Ignore malformed records
+- Never crash on bad data
+- Continue playback after invalid line
+
+PROJECT ROOT CONTENTS
+---------------------
+CCN_V09_1J_GM.py
+CCN_Development_Log.txt
+CSA_LOGO.png
+SCC_BT_Manual.pdf
+SCC BT Sensor Quick Setup Procedure.pdf
+
+SESSION RESUME PROCEDURE
+------------------------
+1. Upload Gold Master
+2. Upload Development Log
+3. Upload SCC Manuals
+4. Resume from latest tested version

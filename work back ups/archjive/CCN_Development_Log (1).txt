@@ -1,0 +1,151 @@
+CCN DEVELOPMENT LOG
+===================
+
+Project: Cable Counter Network (CCN)
+Owner: Scott Sharpe
+Branding: CSA Ocean Sciences Inc.
+Footer Standard: Scott Sharpe / Copilot
+
+CURRENT GOLD MASTER
+-------------------
+Version: V09.1
+File: ccn_v09_1_gui.py
+Status: Last fully verified build on COM7.
+
+DOCUMENTATION BASELINE
+----------------------
+Required project documents:
+- SCC_BT_Manual.pdf
+- SCC BT Sensor Quick Setup Procedure.pdf
+- CCN_Development_Log.txt
+- Latest working CCN .py file
+
+CONFIRMED SCC COMMANDS
+----------------------
+Configuration:
+!!RTCONF
+
+Reset Format:
+!!RTRRRRR
+
+Examples:
+!!RT00000
+!!RT00025
+!!RT00100
+
+KNOWN SCC DATA FORMAT
+---------------------
+Example:
+$CCB00000.7M+0357
+
+Parsed Values:
+- Address = B
+- Cable Out = 0.7
+- Units = M
+- Calibration = +0357
+
+VERSION HISTORY
+---------------
+V09.1
+- Working baseline
+- COM7 verified
+- Direction working
+- Speed working
+- Watchdog working
+
+V09.1a
+- FAILED
+- Parser disconnected
+- No SCC data
+
+V09.1b
+- Partial recovery
+- Buttons restored
+- Lost speed/direction display
+
+V09.1c
+- FAILED
+- Missing reset_scc() method
+- Startup exception
+
+V09.1d
+- Candidate build
+- Direction restored
+- Speed restored
+- Zero Display button
+- Install Offset button
+- Reset SCC placeholder
+- Watchdog working
+
+V09.1e
+- REJECTED
+- SyntaxError
+- Broken SCC reset string
+- Watchdog colors not restored
+
+V09.1f
+- Current test build
+- Large display restoration attempted
+- SCC reset implementation attempted
+- Pending testing
+
+DEVELOPMENT RULES
+-----------------
+1. Always build from last known working version.
+2. Deliver complete downloadable .py files.
+3. Avoid copy/paste patches.
+4. Preserve existing functionality.
+5. New version number for every release.
+6. Test on COM7 before calling stable.
+7. Working code always wins.
+8. Never rebuild from memory.
+9. Documentation travels with code.
+10. Every release must pass startup validation.
+11. Resume package includes code, log, and SCC manuals.
+12. Functional changes shall not remove branding or UI features.
+13. Preserve branding:
+    - CSA Logo
+    - Application Title
+    - Version Number
+    - Footer: CSA Ocean Sciences Inc. / Scott Sharpe / Copilot
+
+WATCHDOG SUBSYSTEM
+------------------
+Current States:
+- NO DATA
+- RECEIVING DATA
+- DATA STALE
+- DATA LOST
+
+Target Colors:
+- Green = RECEIVING DATA
+- Yellow = DATA STALE
+- Red = DATA LOST
+- Red = NO DATA
+
+UI ITEMS TO RESTORE
+-------------------
+- CSA logo at top
+- Footer credits
+- Large centered cable display
+- Watchdog color coding
+
+NEXT TARGET VERSION
+-------------------
+V09.1g
+
+Objectives:
+- Restore CSA logo
+- Restore footer credits
+- Restore watchdog colors
+- Keep parser unchanged
+- Keep speed/direction unchanged
+- Keep logging unchanged
+- Keep COM7 functionality unchanged
+
+SESSION RESUME PROCEDURE
+------------------------
+1. Upload latest working CCN .py file.
+2. Upload CCN_Development_Log.txt.
+3. Upload SCC manuals.
+4. Resume from latest tested version.
