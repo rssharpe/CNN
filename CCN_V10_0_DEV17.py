@@ -27,6 +27,7 @@ class CCNMainWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.ser=None
+        self.raw_record_file=None
         self.previous_cable=None
         self.previous_time=None
         self.raw_cable=0.0
@@ -36,7 +37,12 @@ class CCNMainWindow(QWidget):
         self.logging_enabled=True
         self.last_data_time=None
         self.speed_history=deque(maxlen=10)
-        self.raw_record_file=None
+
+        self.playback_lines=[]
+        self.playback_index=0
+        self.playback_file=''
+        self.playback_timer=QTimer()
+        self.playback_timer.timeout.connect(self.playback_tick)
 
         self.load_config()
 
@@ -181,7 +187,6 @@ class CCNMainWindow(QWidget):
         )
 
         if not m:
-            self.log(f'Ignored malformed SCC record: {line}')
             return False
 
         addr = m.group(1)
@@ -257,6 +262,7 @@ class CCNMainWindow(QWidget):
     def stop_playback(self):
         self.playback_timer.stop()
         self.playback_index=0
+        self.log('Playback stopped')
 
     def playback_tick(self):
         if self.playback_index >= len(self.playback_lines):
@@ -303,6 +309,18 @@ class CCNMainWindow(QWidget):
         db=QPushButton('Disconnect'); db.clicked.connect(self.disconnect_port)
         row.addWidget(self.com); row.addWidget(rb); row.addWidget(cb); row.addWidget(db)
         l.addLayout(row)
+        play_row=QHBoxLayout()
+
+        play_btn=QPushButton('Play Playback')
+        stop_btn=QPushButton('Stop Playback')
+
+        play_btn.clicked.connect(self.start_playback)
+        stop_btn.clicked.connect(self.stop_playback)
+
+        play_row.addWidget(play_btn)
+        play_row.addWidget(stop_btn)
+
+        l.addLayout(play_row)
         self.status=QLabel('Status: DISCONNECTED'); l.addWidget(self.status)
 
         pb_row=QHBoxLayout()
