@@ -1,0 +1,83 @@
+CCN / Cable Counter project handoff
+Date: 2026-11-19
+
+Current working revision
+------------------------
+CCN_V10_0_DEV21.py - V10.0 DEV21, Tension Integration.
+Run from C:\CNN:
+
+    python .\CCN_V10_0_DEV21.py
+
+CCN_V10_0_DEV19.py is the frozen demo baseline. DEV20 was retained
+unchanged when DEV21 was copied from it; DEV20 already included the
+tension work at that point. Keep earlier revisions intact when continuing.
+
+Supporting files
+----------------
+CCN_V10_0_DEV21_User_Manual.md - operating instructions.
+CCN_V10_0_DEV21_GUIDE.md - beginner's development guide.
+ato_modbus.py - Modbus RTU request, CRC and ATO response helpers.
+tests\test_ato_modbus.py and tests\test_tension_ui.py - focused tests.
+CCN_VSCode_Copilot_Workflow.md - development and backup workflow.
+
+Current capabilities
+--------------------
+- Up to three SCC COM sources, playback, counter simulation and view-only
+  TCP cable-counter clients.
+- Separate optional ATO tension panel with its own RS-485 COM connection
+  and Modbus settings. It can be hidden without disconnecting the source.
+- Tension simulation, display zero/reset, editable label, peak tension,
+  warning and critical thresholds with selectable colors, and optional
+  critical sound.
+- A selected cable source/address can be paired with tension for a live
+  tension-versus-cable plot and tension CSV logging.
+- Tension remains local to the connected CCN window; it is not currently
+  sent to TCP clients.
+
+Build and installer
+-------------------
+Build command:
+
+    .\build_ccn_v1.ps1
+
+The script packages DEV21 using CSA_Cable_Counter_Display_V1.iss.
+Current outputs:
+
+    dist\CSA Cable Counter Display V3.exe
+    dist\installer\CSA_Cable_Counter_Display_V3_Setup.exe
+
+These were built on 2026-11-18. The executable launched and its DEV21
+window responded in an isolated-data smoke test. The installer compiled
+successfully but was not installed or tested. Previous V2 outputs remain
+in dist. The installed application identity and data directory retain the
+name "CSA Cable Counter Display V1" for compatibility.
+
+Validation and remaining work
+-----------------------------
+On 2026-11-19, all 19 focused tests passed:
+
+    python -B -m unittest discover -s tests -v
+
+The ATO amplifier and load cell have not yet been tested with DEV21.
+When available, confirm the amplifier's communication mode, slave ID,
+baud rate, parity, stop bits, register format, scale and units; verify the
+RS-485 wiring and compare readings with known loads. Then test zero, peak,
+alerts, cable pairing, logging and loss-of-communication behavior.
+The application alarms are not safety-rated and are not an equipment cutoff.
+Test installation, launch, serial access, logging and uninstall/reinstall
+before deploying the V3 installer.
+
+Git and local data
+------------------
+At the time this handoff was written, the local branch was temp and its last
+commit was f4206d7 ("Freeze DEV17 real-time and playback baseline"); DEV21
+and its supporting files were not yet committed. Check git status and the
+remote branch before continuing: the cached origin/temp and the local temp
+branch had diverged. Review selected files before any commit or push. Do not
+stage local settings, logs, recordings, build output or personal notes
+indiscriminately.
+
+Source runs use C:\CNN\ccn_config.json and local logs/recordings. DEV20 and
+DEV21 share the configuration and raw recordings when run from the same
+folder; their processed CSV logs use separate revision-specific names.
+Preserve existing configuration and log files.
